@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 작성</title>
+</head>
+<body>
+<h1>새 글 작성하기</h1>
+<form action="/board/update" method="POST" id="updateForm">
+    <input type="hidden" name="no" th:value="${post.no}">
+    <label for="title">제목:</label><br>
+    <input th:value="${post.title}" type="text" id="title" name="title" required><br><br>
+
+    <label for="content">내용:</label><br>
+    <textarea id="content" name="content" rows="5" cols="50" required th:text="${post.content}"></textarea><br><br>
+
+    <label for="nickname">작성자:</label><br>
+    <input th:value="${post.nickname}" type="text" id="nickname" name="nickname" readonly><br><br>
+    <input type="hidden" th:value="${post.rdate}" name="rdate">
+
+    <button type="submit" id="submitBtn">등록</button>
+    <script>
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.addEventListener('click', function(event){
+            const confirmed = confirm('이대로 글을 수정하시겠습니까?');
+
+            if(confirmed){
+                const updateForm = document.getElementById("updateForm");
+                updateForm.submit();
+            }else{
+                // 폼 제출을 취소하고 아무 동작도 수행하지 않음
+                event.preventDefault();
+            }
+        })
+    </script>
+</form>
+</body>
+</html>

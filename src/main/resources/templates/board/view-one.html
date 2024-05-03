@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}">게시글 제목</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .post-info {
+            margin-bottom: 10px;
+        }
+        .post-content {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${post.title}">게시글 제목</h1>
+<div class="post-info">
+    <p>작성자: <span th:text="${post.nickname}">작성자</span></p>
+    <p>작성일: <span th:text="${#dates.format(post.rdate, 'yyyy-MM-dd HH:mm')}">작성일</span></p>
+    <p th:if="${post.udate != null}">수정일: <span th:text= "${#dates.format(post.udate, 'yyyy-MM-dd HH:mm')}"></span></p>
+</div>
+<div class="post-content" th:text="${post.content}">게시글 내용</div>
+<hr>
+<a href="/board" class="btn">목록으로 돌아가기</a>
+<br />
+<a th:href="@{'/board/update/' + ${post.no}}" class="btn">수정하기</a>
+<form id="delete_form" th:action="@{'/board/delete/' + ${post.no}}" method="post">
+    <input type="hidden" name="_method" value="delete"/>
+    <a onclick="if (confirm('정말로 삭제하시겠습니까?')) document.getElementById('delete_form').submit();" class="deleteBtn">삭제</a>
+    <style>
+        /* 삭제 링크 스타일 */
+        .deleteBtn {
+            cursor: pointer; /* 마우스 커서를 포인터로 설정 */
+            color: blue; /* 링크 색상 */
+            text-decoration: underline; /* 링크에 밑줄 표시 */
+        }
+    </style>
+</form>
+</body>
+</html>

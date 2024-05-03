@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 글 목록</title>
+    <style>
+        /* 테이블의 테두리 스타일을 설정 */
+        table {
+            border-collapse: collapse; /* 테두리가 겹치도록 설정 */
+            width: 100%; /* 테이블 전체 너비 설정 */
+        }
+        th, td {
+            border: 1px solid black; /* 테두리 스타일과 두께 설정 */
+            padding: 8px; /* 셀 내부 여백 설정 */
+        }
+        a {
+            text-decoration: none; /* 링크 텍스트에 밑줄 제거 */
+            color: black; /* 링크 텍스트 색상 설정 */
+        }
+        a:hover {
+            text-decoration: underline; /* 링크에 마우스 호버시 밑줄 추가 */
+        }
+    </style>
+</head>
+<body>
+<h1>게시판 글 목록</h1>
+<button th:onclick="|location.href='@{/board/new}'|" style="margin-bottom: 10px;">글 작성</button>
+<!-- 게시글 목록 테이블 -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 서버에서 전달받은 게시글 목록을 반복해서 표시 -->
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.no}">게시글 ID</td>
+        <td><a th:href="@{'/board/' + ${post.no}}"><span th:text="${post.title}">게시글 제목</span></a></td>
+        <td th:text="${post.nickname}">작성자</td>
+        <td th:text="${#dates.format(post.rdate, 'yyyy-MM-dd HH:mm')}">작성일</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 새 글 작성 링크 -->
+<!--<a th:href="@{/board/new}">새 글 작성</a>-->
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 작성</title>
+</head>
+<body>
+<h1>새 글 작성하기</h1>
+<form action="/board/post" method="POST" id="postForm">
+    <label for="title">제목:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="content">내용:</label><br>
+    <textarea id="content" name="content" rows="5" cols="50" required></textarea><br><br>
+
+    <label for="nickname">작성자:</label><br>
+    <input type="text" id="nickname" name="nickname" required><br><br>
+
+    <button type="submit" id="submitBtn">등록</button>
+    <script>
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.addEventListener('click', function(event){
+            const confirmed = confirm('이대로 글을 작성하시겠습니까?');
+
+            if(confirmed){
+                const postForm = document.getElementById("postForm");
+                postForm.submit();
+            }else{
+                event.preventDefault();
+            }
+
+        })
+    </script>
+</form>
+</body>
+</html>
